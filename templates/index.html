@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Summary Generator</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='TextSum.css') }}">
+    <script>
+        // JavaScript function to toggle the 'required' attribute based on file upload
+        function toggleTextRequirement() {
+            var fileInput = document.getElementById("myfile");
+            var textInput = document.getElementById("textInput");
+            if (fileInput.files.length > 0) {
+                textInput.removeAttribute("required");
+            } else {
+                textInput.setAttribute("required", "true");
+            }
+        }
+    </script>
+</head>
+<body>
+
+<header>
+    <h1>Brevity AI Text Summarizer</h1>
+    <p>Convert research papers into amazing summaries with just one click!</p>
+</header>
+
+<div class="container">
+
+    <!-- Form allows both text and file upload, with validation handled via JavaScript -->
+    <form method="POST" action="/" enctype="multipart/form-data">
+        <div class="form-container">
+            <!-- Text input field -->
+            <div class="input-container">
+                <h3>Your Text</h3>
+                <textarea name="text" id="textInput" placeholder="Begin typing or paste text here..." required></textarea>
+            </div>
+
+            <!-- File input field -->
+            <div class="input-container">
+                <h3>Upload a File</h3>
+                <input type="file" id="myfile" name="file" accept=".txt,.pdf,.docx" onchange="toggleTextRequirement()" />
+                <p>Only .txt, .pdf, and .docx files are allowed.</p>
+            </div>
+        </div>
+
+        <button type="submit">Summarize</button>
+    </form>
+
+    <!-- Display the summary -->
+    <div>
+        <h3>Summary:</h3>
+        <textarea readonly>{{ summary }}</textarea>
+    </div>
+</div>
+
+</body>
+</html>
